@@ -1,3 +1,9 @@
+"""
+desc  : download vedios from youtube via proxy agent.
+author: Bodhi wang
+mail  : bodwang@deloitte.com.cn
+date  : 2017.9.11
+"""
 import urllib.request
 import urllib.error
 import sys
