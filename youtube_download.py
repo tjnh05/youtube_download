@@ -21,7 +21,7 @@ def getHumanTime(sec):
         return '{0:d} second(s)'.format(int(sec))
 
 
-local_dir = os.getcwd() + "/youtube"
+local_dir = os.path.join(os.getcwd(),"youtube")
 # make local_dir if dir specified doesn't exist
 try:
     os.makedirs(local_dir, exist_ok=True)
