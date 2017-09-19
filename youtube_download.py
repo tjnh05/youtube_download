@@ -9,7 +9,7 @@ import urllib.error
 import sys
 import time
 import os
-#from functools import wraps
+from functools import wraps
 from pytube import YouTube
 
 proxy = {'http':'http://127.0.0.1:1080',
@@ -24,6 +24,7 @@ def timethis(func):
     '''
     Decorator that reports the execution time.
     '''
+    @wraps(func)
     def wrapper(*args, **kwargs):
         start = time.time()
         result = func(*args, **kwargs)
