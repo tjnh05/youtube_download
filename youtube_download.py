@@ -20,7 +20,6 @@ urls = (
         'https://www.youtube.com/watch?v=To3YL92HZyc&list=PLXO45tsB95cKKyC45gatc8wEc3Ue7BlI4',
           )
 
-
 def timethis(func):
     '''
     Decorator that reports the execution time.
@@ -64,7 +63,6 @@ def download(url, local_dir):
         return 0
 
 
-#local_dir = os.getcwd() + "/youtube"os.path.join(os.getcwd,)
 local_dir = os.path.join(os.getcwd(),"youtube")
 print("local_dir=",local_dir)
 # make local_dir if dir specified doesn't exist
