@@ -15,25 +15,6 @@ from pytube import YouTube
 proxy = {'http':'http://127.0.0.1:1080',
          'https':'https://127.0.0.1:1080'}
 urls = (
-        "https://www.youtube.com/watch?v=NBliyFXnWeo&list=PLGVZCDnMOq0oieXy92cJBwSirA3G2MCU1",
-        "https://www.youtube.com/watch?v=UNEZJUbJkog",
-        "https://www.youtube.com/watch?v=Cnfj6QCGLyA",
-        'https://www.youtube.com/watch?v=VoNai5i0qOI',
-        'https://www.youtube.com/watch?v=ABy95341Dto',
-        'https://www.youtube.com/watch?v=VoNai5i0qOI',
-        'https://www.youtube.com/watch?v=W41IFXbB5-M',
-        'https://www.youtube.com/watch?v=6ixhN9umyp4',
-        'https://www.youtube.com/watch?v=v1QY8aAWYc4',
-        'https://www.youtube.com/watch?v=2j0My82eesY',
-        'https://www.youtube.com/watch?v=rNdr7yAv-xg',
-        'https://www.youtube.com/watch?v=X2SSLOlsJFI',
-        'https://www.youtube.com/watch?v=tByJMiQp-IM',
-        'https://www.youtube.com/watch?v=Ju86mknumYM',
-        'https://www.youtube.com/watch?v=ABy95341Dto',
-        'https://www.youtube.com/watch?v=62Y7BXIuX6Y',
-        'https://www.youtube.com/watch?v=3xQTJi2tqgk&list=PLt9Zf_aPaQ4K07I5QFHEu3rFqgzYwpsAr',
-        'https://www.youtube.com/watch?v=5-oyXC0iV_4',
-        'https://www.youtube.com/watch?v=SSu00IRRraY',
         'https://www.youtube.com/watch?v=Tq6rCWPdXoQ',
         'https://www.youtube.com/watch?v=MGx9aUVT7HU',
         'https://www.youtube.com/watch?v=To3YL92HZyc&list=PLXO45tsB95cKKyC45gatc8wEc3Ue7BlI4',
@@ -48,7 +29,7 @@ def timethis(func):
         start = time.time()
         result = func(*args, **kwargs)
         end = time.time()
-        print(func.__name__, end-start, "Secs")
+        print(func.__name__, getHumanTime(end-start))
         return result
     return wrapper
 
