@@ -14,10 +14,11 @@ from pytube import YouTube
 
 proxy = {'http':'http://127.0.0.1:1080',
          'https':'https://127.0.0.1:1080'}
+'''
 urls = (
         'https://www.youtube.com/watch?v=t45YKj0fXoM',
         )
-'''
+
 urls = (
         'https://www.youtube.com/watch?v=t45YKj0fXoM',
         'https://www.youtube.com/watch?v=Tq6rCWPdXoQ',
@@ -25,6 +26,9 @@ urls = (
         'https://www.youtube.com/watch?v=To3YL92HZyc&list=PLXO45tsB95cKKyC45gatc8wEc3Ue7BlI4',
           )
 '''
+urls = (
+        'https://www.youtube.com/watch?v=LFGsZ6ythQQ&pbjreload=10',
+        )
 def timethis(func):
     '''
     Decorator that reports the execution time.
