@@ -1,4 +1,4 @@
-#! /usr/local/bin/proxychains4 python3.6
+#! /usr/local/bin/proxychains4 -q python3.6
 """
 desc  : download vedios from youtube via proxy agent.
 author: Bodhi wang
