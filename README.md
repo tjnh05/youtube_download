@@ -1,2 +1,9 @@
 # youtube_download
 download  vedio resources from youtube
+
+youtube_download.py runs in python3.x, it needs http/https proxy server.
+
+youtube_download.py runs in python3.x, it needs proxychains4 which is able to be download https://github.com/rofl0r/proxychains-ng.
+proxychains4 needs one sock5 server.
+
+shadowsocks client sslocal can't provide http/https proxy service in centos 7, but sock5 is OK.
