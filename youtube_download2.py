@@ -1,4 +1,4 @@
-#! /usr/local/bin/proxychains4 -q python3.6
+#! /usr/local/bin/proxychains4 python3.6
 """
 desc  : download vedios from youtube via proxy agent.
 author: Bodhi wang
@@ -8,18 +8,23 @@ date  : 2017.9.11
 
 Remove proxy agent and modify the call to pytube.
 modified by Bodhi, 2018.3.23
+
+Check if target file exists. If so, skip its download process.
+modified by Bodhi, 2018.3.26
 """
 import sys
 import time
 import os
 from functools import wraps
 from pytube import YouTube
+from pathlib import Path
 
 urls = (
-        'https://www.youtube.com/watch?v=Xi52tx6phRU',
-        'https://www.youtube.com/watch?v=Tq6rCWPdXoQ',
-        'https://www.youtube.com/watch?v=MGx9aUVT7HU',
-        'https://www.youtube.com/watch?v=To3YL92HZyc&list=PLXO45tsB95cKKyC45gatc8wEc3Ue7BlI4',
+        'https://www.youtube.com/watch?v=H0SbnlDsdAc',
+        'https://www.youtube.com/watch?v=McVxUs7d7ok',
+        'https://www.youtube.com/watch?v=5obRgTyTy7Q',
+        'https://www.youtube.com/watch?v=ZKZW2M1C7jU',
+        'https://www.youtube.com/watch?v=AjgD3CvWzS0',
           )
 
 def timethis(func):
@@ -51,13 +56,20 @@ def download(url, local_dir):
         print("Error {0}".format(str(e)).encode("utf-8"))
         return -1
 
-    try:
-        yt.streams.filter(subtype='mp4',progressive=True).first().download(local_dir)
-        print("successfully downloaded", yt.title)
-        return 1
-    except OSError:
+    p=Path(local_dir)
+    fp = p / (yt.title+".mp4")
+    if not fp.exists():
         print(yt.title, "already exists in this {0}! Skipping video...".format(local_dir))
         return 0
+    
+    try:   
+        yt.streams.filter(subtype='mp4',progressive=True).first().download(local_dir)
+        print("successfully downloaded", yt.title)
+    except Exception as e:
+        print("Error {0}".format(str(e)).encode("utf-8"))
+        return -1
+   
+    return 1
 
 
 local_dir = os.path.join(os.getcwd(),"youtube")
