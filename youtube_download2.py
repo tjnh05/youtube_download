@@ -15,9 +15,11 @@ modified by Bodhi, 2018.3.26
 import sys
 import time
 import os
+import re
 from functools import wraps
 from pytube import YouTube
 from pathlib import Path
+
 
 urls = (
         'https://www.youtube.com/watch?v=H0SbnlDsdAc',
@@ -25,6 +27,7 @@ urls = (
         'https://www.youtube.com/watch?v=5obRgTyTy7Q',
         'https://www.youtube.com/watch?v=ZKZW2M1C7jU',
         'https://www.youtube.com/watch?v=AjgD3CvWzS0',
+        'https://www.youtube.com/watch?v=JmiKWTRoiMk',
           )
 
 def timethis(func):
@@ -36,7 +39,7 @@ def timethis(func):
         start = time.time()
         result = func(*args, **kwargs)
         end = time.time()
-        print(func.__name__, getHumanTime(end-start))
+        print("[TIME       ] {0}".format(getHumanTime(end-start)))
         return result
     return wrapper
 
@@ -53,27 +56,34 @@ def download(url, local_dir):
     try:
         yt=YouTube(url)
     except Exception as e:
-        print("Error {0}".format(str(e)).encode("utf-8"))
+        print("[ERROR      ] {0}".format(str(e)).encode("utf-8"))
         return -1
 
+    pattern = r'[\/.:*?"<>|]+'
+    regex = re.compile(pattern)
+    filename = regex.sub('',yt.title).\
+                     replace('\'','').replace('\\','')+".mp4"
+
     p=Path(local_dir)
-    fp = p / (yt.title+".mp4")
-    if not fp.exists():
-        print(yt.title, "already exists in this {0}! Skipping video...".format(local_dir))
+    fp = p / filename
+    if fp.exists():
+        print("[SKIP       ] {0}".format(filename))
         return 0
     
     try:   
+        print("[DOWNLOAD   ] {0}".format(filename))
         yt.streams.filter(subtype='mp4',progressive=True).first().download(local_dir)
-        print("successfully downloaded", yt.title)
+        print("[DONE       ] {0}".format(filename))
     except Exception as e:
-        print("Error {0}".format(str(e)).encode("utf-8"))
+        print("[ERROR      ] {0}".format(str(e)).encode("utf-8"))
         return -1
    
     return 1
 
 
+print("")
 local_dir = os.path.join(os.getcwd(),"youtube")
-print("local_dir=",local_dir)
+#print("local_dir=",local_dir)
 # make local_dir if dir specified doesn't exist
 try:
     os.makedirs(local_dir, exist_ok=True)
@@ -86,7 +96,7 @@ start = time.time()
 file_count = 0
 for url in urls:
     url_start = time.time()
-    print("Download for url:", url)
+    print("[URL        ] {0}".format(url))
     ret = download(url, local_dir)
     if (ret > 0):
         file_count += ret
@@ -94,7 +104,8 @@ for url in urls:
 
 end = time.time()
 elapsed = end - start
-print("Total {0} file(s) have been downloaded into directry {1}!".format(file_count, local_dir))
-print("Elapsed time {0}.".format(getHumanTime(elapsed)))
+print("")
+print("Total {0} file(s) downloaded into directry {1}".format(file_count, local_dir))
+print("Elapsed time {0}".format(getHumanTime(elapsed)))
 
 exit(0)
