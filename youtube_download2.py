@@ -72,7 +72,11 @@ def download(url, local_dir):
     
     try:   
         print("[DOWNLOAD   ] {0}".format(filename))
-        yt.streams.filter(subtype='mp4',progressive=True).first().download(local_dir)
+        yt.streams.filter(subtype='mp4',progressive=True)\
+                  .order_by('resolution')\
+                  .desc()\
+                  .first().download(local_dir)
+
         print("[DONE       ] {0}".format(filename))
     except Exception as e:
         print("[ERROR      ] {0}".format(str(e)).encode("utf-8"))
