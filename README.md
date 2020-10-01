@@ -1,5 +1,5 @@
 # youtube_download
-download  vedio resources from youtube
+download  video resources from youtube
 
 youtube_download.py runs in python3.x, it needs http/https proxy server. It's better to run in window system.
 
